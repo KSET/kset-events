@@ -5,6 +5,8 @@ var corsProxy = "http://localhost:8080/fetch?site=";
 var myParser = new DOMParser();
 var myFactory = null;
 var CUTOFF = 6;
+var INTERVAL = 7000;
+var MAX_HEIGHT = "700px";
 
 var smallDict = new Map();
 smallDict.set("Mon", "ponedjeljak");
@@ -73,6 +75,7 @@ function parseXML(file) {
         };
     }(myFactory.size() - 1), failure, false);
   }
+  myFactory.startSlideshow(INTERVAL);
 }
 
 function findImage(file, ev) {
@@ -89,6 +92,7 @@ function Factory(container, wrapClass, titleClass,
         dateClass, imageClass) {
     
     var events = [];
+    var current = 0;
 
     this.addEvent = function(ev) {
         var div = document.createElement("div");
@@ -127,6 +131,19 @@ function Factory(container, wrapClass, titleClass,
 
     this.size = function() {
         return events.length;
+    };
+
+    this.update = function() {
+        var prev = current;
+        current = (current + 1) % events.length;
+        events[prev].divObj.style["max-height"] = "";
+        events[current].divObj.style["max-height"] = MAX_HEIGHT;
+    };
+
+    this.startSlideshow = function(interval) {
+        if(events.length === 0) return;
+        events[0].divObj.style["max-height"] = MAX_HEIGHT;
+        setInterval(this.update, interval);
     };
 }
 

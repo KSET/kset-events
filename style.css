@@ -2,3 +2,12 @@
     margin-left: 33%;
     margin-right: 33%;
 }
+
+#container div {
+    max-height: 0;
+    overflow-y: hidden;
+
+    -moz-transition: 1s;
+    -ms-transition: 1s;
+    -o-transition: 1s;
+}
