@@ -4,6 +4,10 @@ var url = require("url");
 var fs = require("fs");
 var process = require("process");
 
+var ALLOWED = ["/style.css", "/scripts/main.js",
+               "/scripts/fetching.js", "/scripts/globals.js",
+               "/scripts/structures.js", "/scripts/translation.js"];
+
 var fullURL = "https://www.kset.org";
 
 var options = {
@@ -61,17 +65,13 @@ function route(reqData, response) {
     if (reqData.pathname === "/") {
         console.log("Request for landing page");
         land(response);
-    } else if(reqData.pathname === "/style.css") {
-        console.log("Request for fetching CSS");
-        response.writeHead(200);
-        fs.createReadStream("./style.css").pipe(response);
     } else if (reqData.pathname === "/fetch") {
         console.log("Request for fetching HTML from a remote server");
         askFor(reqData, response);
-    } else if (reqData.pathname === "/scripts/main.js") {
-        console.log("Serving up the script");
+    } else if (ALLOWED.indexOf(reqData.pathname) !== -1) {
+        console.log("A valid request for: " + reqData.pathname);
         response.writeHead(200);
-        fs.createReadStream("./scripts/main.js").pipe(response);
+        fs.createReadStream("." + reqData.pathname).pipe(response);
     } else {
         console.log("Invalid request for: " + reqData.pathname);
         report(response);
