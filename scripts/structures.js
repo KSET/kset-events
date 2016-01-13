@@ -48,23 +48,24 @@ function Factory(container, wrapClass, titleClass,
     this.update = function() {
         var prev = current;
         current = (current + 1) % events.length;
-        events[prev].divObj.style["max-height"] = "";
-        events[current].divObj.style["max-height"] = MAX_HEIGHT;
+        events[prev].turnOff();
+        events[current].turnOn();
     };
 
     this.startSlideshow = function(interval) {
         if (events.length === 0) return;
-        events[0].divObj.style["max-height"] = MAX_HEIGHT;
+        events[0].turnOn();
         setInterval(this.update, interval);
     };
 }
 
 // models an event
-function KSETEvent(name, date, link) {
+function KSETEvent(name, date, link, bullet) {
 
     this.name = name;
     this.date = date;
     this.link = link;
+    this.liObj = bullet;
     this.divObj = null;
     this.titleObj = null;
     this.dateObj = null;
@@ -74,4 +75,14 @@ function KSETEvent(name, date, link) {
 // sets the event's image
 KSETEvent.prototype.changeImgSrc = function(src) {
     this.imgObj.setAttribute("src", src);
+};
+
+KSETEvent.prototype.turnOff = function() {
+    this.divObj.style["max-height"] = "";
+    this.liObj.style["font-weight"] = "normal";
+};
+
+KSETEvent.prototype.turnOn = function() {
+    this.divObj.style["max-height"] = MAX_HEIGHT;
+    this.liObj.style["font-weight"] = "bold";
 };

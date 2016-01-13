@@ -31,12 +31,19 @@ function parseRSS(file, factory) {
 
     var cut = events.length <= CUTOFF ? events.length : CUTOFF;
 
+    var panel = document.getElementById("board");
+
     for (var i = 0; i < cut; i++) {
         title = events[i].getElementsByTagName("title")[0].childNodes[0].nodeValue;
         date = events[i].getElementsByTagName("pubDate")[0].childNodes[0].nodeValue;
         link = events[i].getElementsByTagName("link")[0].childNodes[0].nodeValue;
         date = translateDate(date);
-        factory.addEvent(new KSETEvent(title, date, link));
+
+        var li = document.createElement("li");
+        li.innerHTML = title;
+        panel.appendChild(li);
+
+        factory.addEvent(new KSETEvent(title, date, link, li));
 
         fetchData(corsProxy + link, function(evNum) {
             return function(f) {
