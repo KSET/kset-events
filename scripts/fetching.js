@@ -41,6 +41,7 @@ function parseRSS(file, factory) {
 
         var li = document.createElement("li");
         li.innerHTML = title;
+        li.style["color"] = TITLEC_OFF;
         panel.appendChild(li);
 
         factory.addEvent(new KSETEvent(title, date, link, li));

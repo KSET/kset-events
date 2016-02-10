@@ -1,10 +1,12 @@
 // a container which keeps all events
 // and also changes their appearance
 function Factory(container, wrapClass, titleClass,
-        dateClass, imageClass) {
+        dateClass, imageClass) {//, startMinimum) {
     
     var events = [];
     var current = 0;
+    var imgLoaded = 0;
+    var minimum = 6; // startMinimum;
 
     this.addEvent = function(ev) {
         var div = document.createElement("div");
@@ -23,12 +25,27 @@ function Factory(container, wrapClass, titleClass,
         
         var img = document.createElement("img");
         img.classList.add(imageClass);
+        img.onload = function() {
+            imgLoaded++;
+            if (imgLoaded === minimum) {
+                document.dispatchEvent(new Event("minLoaded"));
+            }
+        };
         ev.imgObj = img;
 
         div.appendChild(h2);
         div.appendChild(p);
         div.appendChild(img);
 
+        div.addEventListener("transitionend", function (obj) {
+            return function() {
+                if (obj.style["max-height"] !== "") {
+                    obj.style["overflow-y"] = "visible";
+                } else {
+                    obj.style["overflow-y"] = "hidden";
+                }
+            };
+        }(div), false);
         container.appendChild(div);
         events.push(ev);
     };
@@ -45,6 +62,7 @@ function Factory(container, wrapClass, titleClass,
         return events.length;
     };
 
+    // hide the current event, and display next one
     this.update = function() {
         var prev = current;
         current = (current + 1) % events.length;
@@ -52,6 +70,7 @@ function Factory(container, wrapClass, titleClass,
         events[current].turnOn();
     };
 
+    // start swapping events
     this.startSlideshow = function(interval) {
         if (events.length === 0) return;
         events[0].turnOn();
@@ -61,7 +80,6 @@ function Factory(container, wrapClass, titleClass,
 
 // models an event
 function KSETEvent(name, date, link, bullet) {
-
     this.name = name;
     this.date = date;
     this.link = link;
@@ -77,12 +95,15 @@ KSETEvent.prototype.changeImgSrc = function(src) {
     this.imgObj.setAttribute("src", src);
 };
 
+// hides the event
 KSETEvent.prototype.turnOff = function() {
     this.divObj.style["max-height"] = "";
-    this.liObj.style["font-weight"] = "normal";
+    this.liObj.style["color"] = TITLEC_OFF;
+    this.divObj.style["overflow-y"] = "hidden";
 };
 
+// shows the event and highlights its title
 KSETEvent.prototype.turnOn = function() {
     this.divObj.style["max-height"] = MAX_HEIGHT;
-    this.liObj.style["font-weight"] = "bold";
+    this.liObj.style["color"] = TITLEC_ON;
 };

@@ -1,9 +1,10 @@
 var http = require("http");
-var https= require("https");
+var https = require("https");
 var url = require("url");
 var fs = require("fs");
 var process = require("process");
 
+// allow only these requests
 var ALLOWED = ["/style.css", "/scripts/main.js",
                "/scripts/fetching.js", "/scripts/globals.js",
                "/scripts/structures.js", "/scripts/translation.js"];
@@ -15,12 +16,14 @@ var options = {
     path : "/feeds/rss/"
 };
 
+// index page
 function land(response) {
     response.writeHead(200, { "Content-Type" : "text/html",
                               "Access-Control-Allow-Origin" : '*' });
     fs.createReadStream("index.html").pipe(response);
 }
 
+// fetch data from the server
 function fetch(response, link) {
     options.path = link;
 
@@ -37,6 +40,7 @@ function fetch(response, link) {
     });
 }
 
+// send a request to KSET.org
 function askFor(reqData, response) {
     response.writeHead(200, { "Content-Type" : "text/xml",
                               "Access-Control-Allow-Origin" : '*' });
@@ -55,12 +59,14 @@ function askFor(reqData, response) {
     }
 }
 
+// callback after a failure
 function report(response) {
     response.writeHead(404, { "Content-Type" : "text/plain" });
     response.write("Error 404: page content not found");
     response.end();
 }
 
+// choose what to serve, according to the request
 function route(reqData, response) {
     if (reqData.pathname === "/") {
         console.log("Request for landing page");

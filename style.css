@@ -1,11 +1,19 @@
+body {
+    background-color: #222323;
+    color: white;
+}
+
 #board {
+    position: absolute;
+    top: 33%;
     float: left;
-    max-width: 33%;
+    width: 28%;
 }
 
 #container {
     margin-left: 33%;
     margin-right: 33%;
+    text-align: center;
 }
 
 #container div {
@@ -15,4 +23,32 @@
     -moz-transition: 1s;
     -ms-transition: 1s;
     -o-transition: 1s;
+}
+
+.title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 3.0em;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-variant: small-caps;
+    text-shadow: 1px 1px 1.5px darkorange;
+}
+
+.date {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.15em;
+}
+
+img {
+    width: 98%;
+    border-radius: 5px;
+    height: 98%;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    padding: 3px 5px;
 }
