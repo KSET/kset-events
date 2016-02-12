@@ -73,7 +73,7 @@ function Factory(container, wrapClass, titleClass,
     // start swapping events
     this.startSlideshow = function(interval) {
         if (events.length === 0) return;
-        events[0].turnOn();
+        current = events.length - 1;
         setInterval(this.update, interval);
     };
 }

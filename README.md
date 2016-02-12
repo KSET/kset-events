@@ -4,6 +4,5 @@ recent events from the KSET.org RSS feed.
 
 To-do:
 
-    -start slideshow only when all images are loaded
+    -start slideshow only when all images are loaded (without timer)
     
-    -fix issue with the first event not overflowing
