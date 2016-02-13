@@ -1,3 +1,16 @@
+var handleResource = (function() {
+    var resource = 0;
+
+    return function(e) {
+        resource++;
+        if (resource === CUTOFF) {
+            document.body.dispatchEvent(
+                new Event("doneLoading")
+            );
+        }
+    };
+})();
+
 // tries to fetch data with GET
 function fetchData(url, onSuccess, onFailure, isXML) {
     var xhttp = new XMLHttpRequest();
@@ -33,6 +46,13 @@ function parseRSS(file, factory) {
 
     var panel = document.getElementById("board");
 
+    document.body.addEventListener("resourceLoaded",
+            handleResource, false);
+
+    document.body.addEventListener("doneLoading",
+            function () { factory.startSlideshow(INTERVAL); },
+            true);
+
     for (var i = 0; i < cut; i++) {
         title = events[i].getElementsByTagName("title")[0].childNodes[0].nodeValue;
         date = events[i].getElementsByTagName("pubDate")[0].childNodes[0].nodeValue;
@@ -53,7 +73,6 @@ function parseRSS(file, factory) {
         }(factory.size() - 1), failure, false);
     }
 
-    factory.startSlideshow(INTERVAL);
 }
 
 // searches DOM for the image of a event

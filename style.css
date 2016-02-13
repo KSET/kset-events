@@ -1,6 +1,7 @@
 body {
     background-color: #222323;
     color: white;
+    overflow: hidden;
 }
 
 #board {
@@ -16,7 +17,7 @@ body {
     text-align: center;
 }
 
-#container div {
+.wrapper {
     max-height: 0;
     overflow-y: hidden;
 
@@ -39,10 +40,14 @@ body {
     font-size: 1.15em;
 }
 
+.thumb {
+    max-width: 100% !important;
+    display: inline-block;
+    height: auto;
+}
+
 img {
-    width: 98%;
     border-radius: 5px;
-    height: 98%;
 }
 
 ul {

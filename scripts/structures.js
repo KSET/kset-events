@@ -5,8 +5,6 @@ function Factory(container, wrapClass, titleClass,
     
     var events = [];
     var current = 0;
-    var imgLoaded = 0;
-    var minimum = 6; // startMinimum;
 
     this.addEvent = function(ev) {
         var div = document.createElement("div");
@@ -25,12 +23,6 @@ function Factory(container, wrapClass, titleClass,
         
         var img = document.createElement("img");
         img.classList.add(imageClass);
-        img.onload = function() {
-            imgLoaded++;
-            if (imgLoaded === minimum) {
-                document.dispatchEvent(new Event("minLoaded"));
-            }
-        };
         ev.imgObj = img;
 
         div.appendChild(h2);
@@ -73,7 +65,7 @@ function Factory(container, wrapClass, titleClass,
     // start swapping events
     this.startSlideshow = function(interval) {
         if (events.length === 0) return;
-        current = events.length - 1;
+        events[current].turnOn();
         setInterval(this.update, interval);
     };
 }
@@ -93,6 +85,9 @@ function KSETEvent(name, date, link, bullet) {
 // sets the event's image
 KSETEvent.prototype.changeImgSrc = function(src) {
     this.imgObj.setAttribute("src", src);
+    this.imgObj.onload = function() {
+        document.body.dispatchEvent(RESOURCE_LOADED);
+    }
 };
 
 // hides the event
@@ -105,5 +100,6 @@ KSETEvent.prototype.turnOff = function() {
 // shows the event and highlights its title
 KSETEvent.prototype.turnOn = function() {
     this.divObj.style["max-height"] = MAX_HEIGHT;
+    this.divObj.style["overflow-y"] = "visible";
     this.liObj.style["color"] = TITLEC_ON;
 };

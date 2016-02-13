@@ -2,7 +2,5 @@
 A simple web application for displaying most
 recent events from the KSET.org RSS feed.
 
-To-do:
-
-    -start slideshow only when all images are loaded (without timer)
-    
+It uses a simple proxy server as a solution
+to bypassing CORS.
