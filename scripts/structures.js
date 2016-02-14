@@ -100,6 +100,5 @@ KSETEvent.prototype.turnOff = function() {
 // shows the event and highlights its title
 KSETEvent.prototype.turnOn = function() {
     this.divObj.style["max-height"] = MAX_HEIGHT;
-    this.divObj.style["overflow-y"] = "visible";
     this.liObj.style["color"] = TITLEC_ON;
 };
