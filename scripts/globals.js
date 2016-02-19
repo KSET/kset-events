@@ -4,7 +4,7 @@ var myFactory = null;
 var CUTOFF = 6;
 // after how many miliseconds to change the event
 var INTERVAL = 7000;
-var MAX_HEIGHT = (0.85 * screen.height)*1 + "px";
+var MAX_HEIGHT = (0.85 * screen.height) * 1;
 var THUMBNAIL = "thumb";
 // colors for event titles
 var TITLEC_ON = "orange";

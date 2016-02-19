@@ -43,6 +43,7 @@ body {
 .thumb {
     max-width: 100% !important;
     display: inline-block;
+    width: 100%;
     height: auto;
 }
 

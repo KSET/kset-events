@@ -85,9 +85,16 @@ function KSETEvent(name, date, link, bullet) {
 // sets the event's image
 KSETEvent.prototype.changeImgSrc = function(src) {
     this.imgObj.setAttribute("src", src);
-    this.imgObj.onload = function() {
-        document.body.dispatchEvent(RESOURCE_LOADED);
-    }
+    this.imgObj.onload = function(obj) {
+        return function() {
+            if (obj.height >= 0.8 * MAX_HEIGHT) {
+                console.log("Possible overflow");
+                obj.classList.remove(THUMBNAIL);
+                obj.height = 0.8 * MAX_HEIGHT;
+            } 
+            document.body.dispatchEvent(RESOURCE_LOADED);
+        };
+    } (this.imgObj);
 };
 
 // hides the event
@@ -99,6 +106,6 @@ KSETEvent.prototype.turnOff = function() {
 
 // shows the event and highlights its title
 KSETEvent.prototype.turnOn = function() {
-    this.divObj.style["max-height"] = MAX_HEIGHT;
+    this.divObj.style["max-height"] = MAX_HEIGHT + "px";
     this.liObj.style["color"] = TITLEC_ON;
 };
