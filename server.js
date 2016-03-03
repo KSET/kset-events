@@ -5,7 +5,7 @@ var fs = require("fs");
 var process = require("process");
 
 // allow only these requests
-var ALLOWED = ["/style.css", "/scripts/main.js",
+var ALLOWED = ["/style.css", "/kset-logo.png", "/scripts/main.js",
                "/scripts/fetching.js", "/scripts/globals.js",
                "/scripts/structures.js", "/scripts/translation.js"];
 

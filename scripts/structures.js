@@ -101,6 +101,7 @@ KSETEvent.prototype.changeImgSrc = function(src) {
 KSETEvent.prototype.turnOff = function() {
     this.divObj.style["max-height"] = "";
     this.liObj.style["color"] = TITLEC_OFF;
+    this.liObj.classList.remove(HIGHLIGHT);
     this.divObj.style["overflow-y"] = "hidden";
 };
 
@@ -108,4 +109,5 @@ KSETEvent.prototype.turnOff = function() {
 KSETEvent.prototype.turnOn = function() {
     this.divObj.style["max-height"] = MAX_HEIGHT + "px";
     this.liObj.style["color"] = TITLEC_ON;
+    this.liObj.classList.add(HIGHLIGHT);
 };
