@@ -11,5 +11,5 @@ window.onload = function() {
             "date", "thumb");
 
     fetchData(corsProxy + "https://www.kset.org/feeds/rss/",
-        function(f) { parseRSS(f, myFactory); }, parseRSS, failure, true);
+        function(f) { parseRSS(f, myFactory); }, failure, true);
 }

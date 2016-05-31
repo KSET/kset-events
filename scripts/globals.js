@@ -1,4 +1,5 @@
-var corsProxy = "http://localhost:8080/fetch?site=";
+//var corsProxy = "http://localhost:8080/fetch?site=";
+var corsProxy = "fetch.php?url=";
 var myFactory = null;
 // load only this much feeds
 var CUTOFF = 6;
