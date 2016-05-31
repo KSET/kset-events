@@ -9,4 +9,4 @@ There are two proxy servers available: Node.js
 server and Simple PHP Proxy, which is available at:
 http://github.com/cowboy/php-simple-proxy/
 
-To configure which one should be used, corsProsy must be changed in globals.js.
+To configure which one should be used, corsProxy must be changed in globals.js.
