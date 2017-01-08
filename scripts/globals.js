@@ -1,4 +1,3 @@
-var corsProxy = "https://cors.000webhostapp.com/fetch.php?url=";
 //if node.js proxy server is used,
 //corsProxy should be http://localhost:8080/fetch?site=
 var myFactory = null;
