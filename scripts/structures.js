@@ -1,6 +1,6 @@
 // a container which keeps all events
 // and also changes their appearance
-function Factory(container, wrapClass, titleClass,
+function Factory(container, indicator, wrapClass, titleClass,
         dateClass, imageClass) {//, startMinimum) {
     
     var events = [];
@@ -8,37 +8,55 @@ function Factory(container, wrapClass, titleClass,
 
     this.addEvent = function(ev) {
         var div = document.createElement("div");
-        div.classList.add(wrapClass);
+	$(div).addClass("item");
+	$(div).addClass("container");
+
+	//<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+	var li = document.createElement("li");
+	$(li).attr('data-slide-to', events.length);
+	$(li).attr('data-target', "#myCarousel");
+	
+	if (events.length == 0) {
+		$(div).addClass("active");
+		$(li).addClass("active");
+	}
+
+	$(li).appendTo(indicator);
+
         ev.divObj = div;
 
-        var h2 = document.createElement("h2");
-        h2.innerHTML = ev.name;
-        h2.classList.add(titleClass);
-        ev.titleObj = h2;
+	var row1 = document.createElement("div");
+	$(row1).addClass("row");
 
-        var p = document.createElement("p");
-        p.innerHTML = ev.date;
-        p.classList.add(dateClass);
+	var row2 = document.createElement("div");
+	$(row2).addClass("row");
+
+	var cont = document.createElement("div");
+	$(cont).addClass("row");
+	$(cont).appendTo(div);
+
+	var capt = document.createElement("div");
+	$(capt).addClass("carousel-caption");
+	$(capt).appendTo(cont);
+
+	var h1 = document.createElement("h1");
+        $(h1).text(ev.name);
+	$(h1).appendTo(capt);
+        ev.titleObj = h1;
+
+	var p = document.createElement("p");
+        $(p).text(ev.date);
+	$(p).appendTo(capt);
         ev.dateObj = p;
-        
-        var img = document.createElement("img");
-        img.classList.add(imageClass);
-        ev.imgObj = img;
+	
+	var img = document.createElement("img");
+	$(img).addClass(NAMES[events.length] + "-slide");
+	ev.imgObj = img;
+	$(img).appendTo(row2);
+	$(row2).appendTo(div);
 
-        div.appendChild(h2);
-        div.appendChild(p);
-        div.appendChild(img);
-
-        div.addEventListener("transitionend", function (obj) {
-            return function() {
-                if (obj.style["max-height"] !== "") {
-                    obj.style["overflow-y"] = "visible";
-                } else {
-                    obj.style["overflow-y"] = "hidden";
-                }
-            };
-        }(div), false);
-        container.appendChild(div);
+	$(div).appendTo(container);
+        //container.appendChild(div);
         events.push(ev);
     };
 
@@ -53,29 +71,13 @@ function Factory(container, wrapClass, titleClass,
     this.size = function() {
         return events.length;
     };
-
-    // hide the current event, and display next one
-    this.update = function() {
-        var prev = current;
-        current = (current + 1) % events.length;
-        events[prev].turnOff();
-        events[current].turnOn();
-    };
-
-    // start swapping events
-    this.startSlideshow = function(interval) {
-        if (events.length === 0) return;
-        events[current].turnOn();
-        setInterval(this.update, interval);
-    };
 }
 
 // models an event
-function KSETEvent(name, date, link, bullet) {
+function KSETEvent(name, date, link) {
     this.name = name;
     this.date = date;
     this.link = link;
-    this.liObj = bullet;
     this.divObj = null;
     this.titleObj = null;
     this.dateObj = null;

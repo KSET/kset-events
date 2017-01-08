@@ -1,21 +1,49 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <title>My test page</title>
-        <link rel="stylesheet" href="style.css" />
+            <meta charset="utf-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>KSET Events</title>
+
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
+    <!-- Optional Bootstrap theme -->
+
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        <div id="panel">
-            <ul id="board">
-            </ul>
-        </div>
-        <div id="container">
-            <script src="scripts/globals.js"></script>
-            <script src="scripts/translation.js"></script>
-            <script src="scripts/structures.js"></script>
-            <script src="scripts/fetching.js"></script>
-            <script src="scripts/main.js"></script>
-        </div>
+	<div class="container-fluid">
+		<div id="myCarousel" class="carousel slide" >
+		  <div class="row">
+		    <div class="carousel-inner" role="listbox" id="car-inner">
+		    </div>
+		  </div>
+		  
+		  <div class="row" id="footer">
+<div class="row">
+		    <ol class="carousel-indicators" id="car-ind">
+		    </ol>
+		  </div>
+		  </div>
+			<!--
+			<a class="carousel-control left" href="#myCarousel" data-slide="prev">‹</a>
+			<a class="carousel-control right" href="#myCarousel" data-slide="next">›</a>
+			-->
+		</div>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="scripts/globals.js"></script>
+    <script src="scripts/translation.js"></script>
+    <script src="scripts/structures.js"></script>
+    <script src="scripts/fetching.js"></script>
+    <script src="scripts/main.js"></script>
     </body>
 </html>

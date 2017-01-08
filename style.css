@@ -1,68 +1,57 @@
 body {
-    background-color: #222323;
-    color: white;
-    overflow: hidden;
+  background-color: #333;
+  overflow: hidden;
 }
 
-#board {
-    position: absolute;
-    top: 33%;
-    float: left;
-    width: 48%;
-    font-size: 1.5em;
+/* Carousel base class */
+.carousel {
+  height: 100%;
+  text-align: center;
 }
 
-#container {
-    margin-left: 50%;
-    margin-right: 10%;
-    text-align: center;
+.carousel-indicators {
+  position: fixed;
+  z-index: 0;
 }
 
-.wrapper {
-    max-height: 0;
-    overflow-y: hidden;
-
-    -moz-transition: 1s;
-    -ms-transition: 1s;
-    -o-transition: 1s;
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  position: static;
+  padding-top: 0;
+  margin-top: 0;
 }
 
-.title {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 3.0em;
-    margin-top: 0px;
-    margin-bottom: 0px;
+/* Declare heights because of positioning of img element */
+.carousel .item {
+  height: auto;
+  background-color: #333;
+}
+
+.carousel-inner > .item > img {
+  min-height: 593px;
+  height: auto;
+}
+
+.carousel-inner img {
+  height: 513px;
+   border: 1px solid #999;
+   background-color: #fcfcfc;
+   padding: 4px; 
+}
+
+h1 {
     font-variant: small-caps;
-    text-shadow: 1px 1px 1.5px darkorange;
+    text-shadow: 1px 1px 1.5px black;
+    font-size: 56px;
+    font-weight: bold;
 }
 
-.date {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.38em;
+p {
+    font-size: 30px;
+    font-weight: bold;
 }
 
-.thumb {
-    max-width: 100% !important;
-    display: inline-block;
+#footer {
+    height: 150px;
     width: 100%;
-    height: auto;
-}
-
-#container img {
-    border-radius: 5px;
-}
-
-ul {
-    list-style-type: none;
-}
-
-li {
-    padding-left: 40px;
-    margin-top: 9px;
-    padding-top: 5px;
-    height: 32px;
-}
-
-.highlight {
-    background: url("kset-logo.png") no-repeat left top;
 }

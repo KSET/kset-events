@@ -44,27 +44,23 @@ function parseRSS(file, factory) {
 
     var cut = events.length <= CUTOFF ? events.length : CUTOFF;
 
-    var panel = document.getElementById("board");
-
     document.body.addEventListener("resourceLoaded",
             handleResource, false);
 
     document.body.addEventListener("doneLoading",
-            function () { factory.startSlideshow(INTERVAL); },
-            true);
+            function () {
+				$("#myCarousel").carousel("pause").removeData();
+				$("#myCarousel").carousel({
+  					interval: INTERVAL
+				});
+			}, true);
 
     for (var i = 0; i < cut; i++) {
         title = events[i].getElementsByTagName("title")[0].childNodes[0].nodeValue;
         date = events[i].getElementsByTagName("pubDate")[0].childNodes[0].nodeValue;
         link = events[i].getElementsByTagName("link")[0].childNodes[0].nodeValue;
         date = translateDate(date);
-
-        var li = document.createElement("li");
-        li.innerHTML = title;
-        li.style["color"] = TITLEC_OFF;
-        panel.appendChild(li);
-
-        factory.addEvent(new KSETEvent(title, date, link, li));
+        factory.addEvent(new KSETEvent(title, date, link));
 
         fetchData(corsProxy + link, function(evNum) {
             return function(f) {
